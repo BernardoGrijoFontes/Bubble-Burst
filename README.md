@@ -1,4 +1,4 @@
-# Bubble-Burst
+# Bubble Burst
 
 Bubble Burst é um jogo idealizado pelos alunos do primeiro período de Sistemas de Informação, por mais simples que seja foi feito com carinho já que foi o primeiro jogo realizado por todos os integrantes do grupo.
 
