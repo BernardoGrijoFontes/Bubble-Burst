@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="bolhas.css">
+    <link rel="icon" type="image/jpg" href="logo.jpg">
+    <title>Bubble Burst</title>
+</head>
+<body>
+    <div class="marquee-container">
+        <marquee id="um" direction="up" vspace="0" scrollamount="14" onclick="velocidade('um')"><img onclick="estourar('1'); faseDois('1')" id="1" src="bolha.png" width="100" height="100"></marquee>
+        <marquee id="dois" direction="up" vspace="0" scrollamount="18" onclick="velocidade('dois')"><img onclick="estourar('2'); faseDois('2')" id="2" src="bolha.png" width="100" height="100"></marquee>
+        <marquee id="tres" direction="up" vspace="0" scrollamount="19" onclick="velocidade('tres')"><img onclick="estourar('3'); faseDois('3')" id="3" src="bolha.png" width="100" height="100"></marquee>
+        <marquee id="quatro" direction="up" vspace="0" scrollamount="20" onclick="velocidade('quatro')"><img onclick="estourar('4'); faseDois('4')" id="4" src="bolha.png" width="100" height="100"></marquee>
+        <marquee id="cinco" direction="up" vspace="0" scrollamount="16" onclick="velocidade('cinco')"><img onclick="estourar('5'); faseDois('5')" id="5" src="bolha.png" width="100" height="100"></marquee>
+    </div>
+
+    <div id="start" class="inicio">
+        <h1>BUBBLE BURST</h1>
+        <h2>Clique para iniciar o jogo</h2>
+        <p>Quando o jogo começar, você vai ter 7 segundos para estourar todas as bolhas</p>
+        <p>Se não estourar todas, você perde</p>
+        <p>Se estourar, vai para a próxima fase</p>
+        <button onclick="start()">Começar</button>
+    </div>
+
+    <div id="gameOver" class="game-over">
+        <h1>Game Over!</h1>
+        <p>Você perdeu! Tente novamente</p>
+        <button onclick="reiniciarJogo()">Reiniciar</button>
+    </div>
+
+    <script>
+        var i = 0;
+        fasedois = false;
+        comecou = false;
+
+        function estourar(id) {
+            const bolha = document.getElementById(id);
+            bolha.classList.add("sumiu");
+            i = i + 1; 
+        }
+        function faseDois(id) {
+            if (i == 5) {
+                fasedois = true;
+                setTimeout(function() {
+                    const bolha = document.getElementById(id);
+                    bolha.classList.add("sumiu"); 
+                    limpar(); 
+                }, 4000);
+
+                i = 0;
+            }
+        }
+        function limpar() {
+            const bolha1 = document.getElementById('1');
+            const bolha2 = document.getElementById('2');
+            const bolha3 = document.getElementById('3');
+            const bolha4 = document.getElementById('4');
+            const bolha5 = document.getElementById('5');
+            bolha1.classList.remove("sumiu");
+            bolha2.classList.remove("sumiu");
+            bolha3.classList.remove("sumiu");
+            bolha4.classList.remove("sumiu");
+            bolha5.classList.remove("sumiu");
+            fasedois = false;
+        }
+        
+        function checar(){
+            if (i < 5 && fasedois == false && comecou == true){
+                console.log("Perdeu!")
+                exibirGameOver();
+            }
+        }
+        if (fasedois == false){
+            setInterval(checar, 7000)
+        }
+
+        function exibirGameOver() {
+            document.getElementById('gameOver').style.display = 'block';
+            document.querySelector('.marquee-container').style.display = 'none'; 
+        }
+
+        function start() {
+            document.getElementById('start').style.display = 'none';
+            document.querySelector('.marquee-container').style.display = 'flex'; 
+            comecou = true;
+        }
+
+        function reiniciarJogo() {
+            location.reload();
+        }
+
+        function velocidade(num) {
+                const marque = document.getElementById(num);
+                const vel = marque.getAttribute('scrollamount');
+                marque.setAttribute('scrollamount', parseInt(vel) + 5); 
+        }
+        
+    </script>
+</body>
+</html>
